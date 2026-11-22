@@ -1,0 +1,36 @@
+{{! core 10, the sign up form. part a }}
+<h1>Create Account</h1>
+
+{{#if error}}
+    <p class="error">{{error}}</p>
+{{/if}}
+
+<form id="register-form" action="/register" method="POST" novalidate>
+    <fieldset>
+        <legend>Your Details</legend>
+
+        <label for="firstName">First Name</label>
+        <input type="text" name="firstName" id="firstName" value="{{firstName}}" required>
+
+        <label for="lastName">Last Name</label>
+        <input type="text" name="lastName" id="lastName" value="{{lastName}}" required>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="{{email}}" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+        <p class="field-hint">
+            At least 8 characters, with one uppercase letter and one number, and no spaces.
+        </p>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" required>
+
+        <button type="submit">Create Account</button>
+    </fieldset>
+</form>
+
+<p>Already have an account? <a href="/login">Sign in</a></p>
+
+<script src="/public/js/auth.js"></script>

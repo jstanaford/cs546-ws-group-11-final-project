@@ -1,0 +1,23 @@
+/* sign in and sign up pages. part a's own sheet - base.css already does the form fields and
+the button, this is just the bits that are only on these two pages */
+
+#login-form,
+#register-form {
+  max-width: 480px;
+}
+
+#login-form fieldset,
+#register-form fieldset {
+  margin-bottom: 1rem;
+}
+
+.field-hint {
+  margin-top: -0.75rem;
+  margin-bottom: 1rem;
+  color: #6b7480;
+  font-size: 0.85rem;
+}
+
+#client-error {
+  max-width: 480px;
+}
