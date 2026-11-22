@@ -14,8 +14,8 @@ const getCollectionFn = (collection) => {
   };
 };
 
-// all eight collections from our database proposal, listed up front so nobody has to come
-// back and edit this file later. just import the one you need
+// all eight from our database proposal, listed up front so nobody has to edit this file
+// later. just import the one you need
 export const users = getCollectionFn('users');
 export const categories = getCollectionFn('categories');
 export const locations = getCollectionFn('locations');
@@ -25,11 +25,9 @@ export const loans = getCollectionFn('loans');
 export const waitlistEntries = getCollectionFn('waitlistEntries');
 export const notifications = getCollectionFn('notifications');
 
-// the ten indexes from the indexes table in our proposal. app.js calls this once on startup
-// and the seed calls it too after it drops the db
-// the two unique ones are doing more than speeding things up - they are what actually stops
-// two accounts on the same email or two pieces of equipment on the same asset tag, even if
-// two people submit at the same moment
+// the ten indexes from our proposal. app.js calls this on startup and the seed calls it
+// after dropping the db. the two unique ones are doing more than speeding things up, they
+// are what stops two accounts on one email even if both get submitted at the same moment
 export const ensureIndexes = async () => {
   const db = await dbConnection();
 

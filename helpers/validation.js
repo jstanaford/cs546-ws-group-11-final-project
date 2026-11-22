@@ -2,8 +2,8 @@ import {ObjectId} from 'mongodb';
 import xss from 'xss';
 
 // shared validation for the whole group. anything in here is something more than one of us
-// needs - if a check is only for your own feature keep it in your own file instead, otherwise
-// this turns into the one file all five of us are fighting over
+// needs. if a check is only for your own feature keep it in your own file, otherwise this
+// turns into the one file all five of us are fighting over
 
 // checks that a val was provided, is a string, and is not just spaces
 // returns the trimmed string val
@@ -18,8 +18,8 @@ export const checkString = (val, varName) => {
   return trimmedVal;
 };
 
-// same as checkString but an empty field is allowed - use this for the stuff that is genuinely
-// optional like admin notes. comes back as '' so the db never gets undefined
+// same as checkString but an empty field is allowed, for the genuinely optional stuff like
+// admin notes. comes back as '' so the db never gets undefined
 export const checkOptionalString = (val, varName) => {
   if (val === undefined || val === null) {
     return '';
@@ -34,8 +34,8 @@ export const checkOptionalString = (val, varName) => {
   return trimmedVal;
 };
 
-// takes an id as a string off the url or as an ObjectId already and hands back an ObjectId
-// so the data functions can query with it straight away
+// takes an id off the url as a string, or one that is already an ObjectId, and hands back an
+// ObjectId so the data functions can query with it straight away
 export const checkId = (val, varName) => {
   if (val instanceof ObjectId) {
     return val;
@@ -47,13 +47,12 @@ export const checkId = (val, varName) => {
   return new ObjectId(trimmedVal);
 };
 
-// emails get stored lowercase so the unique index actually does its job - without this
-// Maya@stevens.edu and maya@stevens.edu would both be allowed to register
+// stored lowercase so the unique index actually does its job. without this
+// Maya@stevens.edu and maya@stevens.edu would both get to register
 export const checkEmail = (val) => {
   let trimmedVal = checkString(val, 'email');
   let loweredVal = trimmedVal.toLowerCase();
-  // one @ with something either side and a dot in the back half. not trying to catch every
-  // weird legal address here, just the typos
+  // one @ with something either side and a dot in the back half. just catching typos here
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(loweredVal)) {
     throw 'Error: email is not a valid email address';
   }
@@ -72,7 +71,7 @@ export const checkWholeNumber = (val, varName, min, max) => {
     if (trimmedVal.length === 0) {
       throw `Error: ${varName} cannot be an empty string or just spaces`;
     }
-    // only plain digits allowed - no negatives, no decimals, no letters
+    // only plain digits allowed. no negatives, no decimals, no letters
     if (!/^\d+$/.test(trimmedVal)) {
       throw `Error: ${varName} gotta be a whole number`;
     }
@@ -131,8 +130,8 @@ export const checkDate = (val, varName) => {
   return dateVal;
 };
 
-// run anything a user typed through this before it gets rendered back out. handlebars escapes
-// {{ }} on its own so this is really for the places we store it and for any triple stash
+// run anything a user typed through this before storing it. handlebars escapes {{ }} on its
+// own, so this is for what we save and for any triple stash
 export const sanitize = (val) => {
   if (val === undefined || val === null) {
     return '';
@@ -143,8 +142,8 @@ export const sanitize = (val) => {
   return xss(val);
 };
 
-// every list of allowed values from our database proposal, in one place. use these with
-// checkEnum instead of retyping the strings - if we each type them out we will each get one wrong
+// every list of allowed values from our database proposal. use these with checkEnum instead
+// of retyping the strings, because if we each type them out we will each get one wrong
 export const ENUMS = {
   role: ['user', 'admin'],
   equipmentStatus: ['available', 'onOffer', 'reserved', 'checkedOut', 'outOfService', 'retired'],

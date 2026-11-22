@@ -5,8 +5,8 @@ import {requireGuest, requireLogin} from './middleware.js';
 
 // core 10, signing up, signing in and signing out. part a
 
-// what we keep in the session. deliberately small - no hash, nothing we would mind sitting in
-// a cookie store, and little enough that it does not go stale the moment something changes
+// what we keep in the session. deliberately small, no hash, and little enough that it does
+// not go stale the moment something changes
 const sessionUser = (user) => {
   return {
     _id: user._id,
@@ -35,7 +35,7 @@ router
 
     try {
       // the data function does the real validating, we just hand it what came off the form.
-      // doing it in both places would mean two sets of rules to keep in step
+      // two sets of rules would be two sets to keep in step
       const newUser = await createUser(
         formInfo.firstName,
         formInfo.lastName,
@@ -46,8 +46,7 @@ router
       req.session.user = sessionUser(newUser);
       return res.redirect('/catalog');
     } catch (e) {
-      // handing back what they typed so they are not starting the form over, except the
-      // password which we never echo
+      // handing back what they typed so the form is not blank again, except the password
       return res.status(400).render('register', {
         title: 'Create Account',
         stylesheet: 'auth.css',
@@ -81,7 +80,7 @@ router
       req.session.user = sessionUser(foundUser);
       return res.redirect('/catalog');
     } catch (e) {
-      // 401 and not 400 - the form was fine, the credentials were not
+      // 401 and not 400, the form was fine, the credentials were not
       return res.status(401).render('login', {
         title: 'Sign In',
         stylesheet: 'auth.css',
@@ -91,7 +90,7 @@ router
     }
   });
 
-// a post and not a get so that an image tag or a link preview cannot sign someone out
+// a post and not a get, so an image tag or a link preview cannot sign someone out
 router.route('/logout').post(requireLogin, async (req, res) => {
   req.session.destroy(() => {
     return res.redirect('/login');

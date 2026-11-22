@@ -1,6 +1,5 @@
-/* shared base styles - the nav, tables, forms and buttons, so we are not each inventing a
-button from scratch. build your own sheet on top of this for your own pages instead of
-changing things in here */
+/* shared base styles. the nav, tables, forms and buttons, so we are not each inventing a
+button. build your own sheet on top of this instead of changing things in here */
 
 * {
   box-sizing: border-box;
@@ -99,7 +98,7 @@ a {
   color: #1f3a5f;
 }
 
-/* tables - most of the admin screens are a list of something */
+/* tables. most of the admin screens are a list of something */
 
 table {
   width: 100%;
@@ -195,7 +194,7 @@ button.secondary:hover {
   background: #eceff3;
 }
 
-/* messages - the error page uses these and so does every form that failed validation */
+/* messages. the error page uses these and so does every form that failed validation */
 
 .error {
   border-left: 4px solid #a8322d;

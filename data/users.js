@@ -4,14 +4,14 @@ import * as helpers from '../helpers/validation.js';
 
 const saltRounds = 10;
 
-// password rules are ours, they are not in the proposal, so they live here rather than in the
-// shared helpers file - nobody else needs them
+// our own password rules, not in the proposal, so they live here instead of the shared
+// helpers file. nobody else needs them
 const checkPassword = (password) => {
   if (password === undefined || typeof password !== 'string') {
     throw 'Error: password has to be given and has to be a string';
   }
-  // not trimming this one. a space is a legal character in a password and quietly stripping it
-  // means the password you set is not the password you typed
+  // not trimming this one. stripping a space would mean the password you set is not the one
+  // you typed
   if (password.length < 8) {
     throw 'Error: password must be at least 8 characters long';
   }
@@ -27,8 +27,8 @@ const checkPassword = (password) => {
   return password;
 };
 
-// the hash never leaves this file. everything that returns a user goes through here first so
-// that no route can accidentally hand it to a template
+// the hash never leaves this file. everything returning a user goes through here first so no
+// route can hand it to a template by accident
 const stripHash = (user) => {
   if (user === null || user === undefined) {
     return user;
@@ -53,8 +53,8 @@ export const createUser = async (firstName, lastName, email, password, role, adm
   email = helpers.checkEmail(email);
   password = checkPassword(password);
 
-  // signing yourself up always makes a plain user. an admin hands out the admin role later,
-  // from the accounts screen, so the sign up form can never be used to make one
+  // signing yourself up always makes a plain user. the admin role gets handed out later from
+  // the accounts screen, so the sign up form can never make one
   if (role === undefined) {
     role = 'user';
   }
@@ -78,9 +78,8 @@ export const createUser = async (firstName, lastName, email, password, role, adm
   try {
     insertInfo = await userCollection.insertOne(newUser);
   } catch (e) {
-    // 11000 is the unique index on email saying no. doing it this way instead of looking first
-    // and then inserting, because two people signing up at the same moment would both find
-    // nothing and both get in
+    // 11000 is the unique index on email saying no. doing it this way instead of looking
+    // first, because two people signing up at once would both find nothing and both get in
     if (e.code === 11000) {
       throw 'Error: an account with that email already exists';
     }
@@ -108,8 +107,8 @@ export const loginUser = async (email, password) => {
   const userCollection = await users();
   let foundUser = await userCollection.findOne({email: email});
 
-  // same message whether it was the email or the password, on purpose. if we said "no account
-  // with that email" then anyone could use this form to find out who has an account here
+  // same message either way on purpose. saying "no account with that email" would let anyone
+  // use this form to find out who has an account here
   if (foundUser === null) {
     throw 'Error: either the email or the password is wrong';
   }

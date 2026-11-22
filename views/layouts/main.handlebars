@@ -1,5 +1,5 @@
-{{! the page shell every view gets rendered into. the nav reads res.locals.user, which app.js
-sets from the session, so no route has to pass the signed in user down just for the header }}
+{{! the page shell every view renders into. the nav reads res.locals.user, which app.js sets
+from the session, so no route has to pass the user down just for the header }}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +8,7 @@ sets from the session, so no route has to pass the signed in user down just for 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{title}}</title>
     <link rel="stylesheet" href="/public/css/base.css">
-    {{! your own sheet for your own pages - pass stylesheet from your route }}
+    {{! your own sheet for your own pages, pass stylesheet from your route }}
     {{#if stylesheet}}
         <link rel="stylesheet" href="/public/css/{{stylesheet}}">
     {{/if}}
@@ -37,7 +37,7 @@ sets from the session, so no route has to pass the signed in user down just for 
 
                     <li class="nav-user">{{user.firstName}} {{user.lastName}}</li>
                     <li>
-                        {{! a post and not a link so that nothing can sign you out just by loading }}
+                        {{! a post and not a link, so nothing signs you out just by loading }}
                         <form action="/logout" method="POST">
                             <button type="submit">Sign Out</button>
                         </form>

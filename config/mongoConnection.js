@@ -14,8 +14,8 @@ export const dbConnection = async () => {
 };
 
 export const closeConnection = async () => {
-  // checking first because the seed script and anything else that ends early can call this
-  // before a connection was ever opened, and closing an undefined client throws
+  // checking first because the seed can call this before a connection was ever opened,
+  // and closing an undefined client throws
   if (_connection) {
     await _connection.close();
     _connection = undefined;

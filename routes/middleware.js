@@ -1,6 +1,5 @@
-// the three guards everyone uses. put these in front of your routes instead of each of us
-// writing our own check, otherwise five slightly different versions is five chances to get
-// it wrong and leave a page open
+// the three guards everyone uses. put these in front of your routes rather than writing your
+// own, five slightly different versions is five chances to leave a page open
 
 // anything a signed out person should not see
 export const requireLogin = (req, res, next) => {
@@ -10,9 +9,8 @@ export const requireLogin = (req, res, next) => {
   return next();
 };
 
-// admin only. every router under /admin is already mounted behind this in routes/index.js,
-// so you do not have to remember to add it yourself. that also means typing the address
-// straight into the bar does not get you in
+// admin only. every router under /admin is already mounted behind this in routes/index.js, so
+// you do not have to remember it, and typing the address straight in does not get you there
 export const requireAdmin = (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/login');
@@ -27,7 +25,7 @@ export const requireAdmin = (req, res, next) => {
   return next();
 };
 
-// the opposite - no point showing the sign in form to someone already signed in
+// no point showing the sign in form to someone already signed in
 export const requireGuest = (req, res, next) => {
   if (req.session.user) {
     return res.redirect('/catalog');

@@ -1,9 +1,8 @@
 import js from '@eslint/js';
 import globals from 'globals';
 
-// flat config, eslint 9. keeping the rule list short on purpose - five of us are writing
-// code at the same time and the only rules worth arguing about are the ones that catch
-// things that actually break the app when the TA runs it
+// flat config, eslint 9. keeping the rule list short on purpose, five of us are writing code
+// at the same time and the only rules worth arguing about are the ones that catch real breaks
 export default [
   {
     ignores: ['node_modules/**', 'public/images/**']
@@ -19,9 +18,9 @@ export default [
       }
     },
     rules: {
-      // a variable you imported and never used is usually a leftover from a rename
+      // usually a leftover from a rename
       'no-unused-vars': 'error',
-      // typos in a variable name - the kind that only shows up when that route gets hit
+      // typos in a name, the kind that only shows up when that route gets hit
       'no-undef': 'error'
     }
   },

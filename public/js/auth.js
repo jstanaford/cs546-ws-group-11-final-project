@@ -1,5 +1,5 @@
-// client side checks for the sign in and sign up forms. this is only here to save the user a
-// round trip - the server checks all of it again, because anything out here can be turned off
+// checks for the sign in and sign up forms, only here to save a round trip. the server checks
+// all of it again, because anything out here can be turned off
 
 const showError = (form, message) => {
   let errorBox = document.getElementById('client-error');
@@ -44,8 +44,8 @@ if (registerForm !== null) {
       problem = checkEmailLooksRight(email);
     }
 
-    // password rules have to match the ones in data/users.js. if you change them there,
-    // change them here too or people get told it worked and then it did not
+    // these have to match data/users.js. change them there and change them here too, or
+    // people get told it worked and then it did not
     if (problem === null) {
       if (password.length < 8) {
         problem = 'Your password has to be at least 8 characters.';
