@@ -1,0 +1,219 @@
+/* shared base styles. the nav, tables, forms and buttons, so we are not each inventing a
+button. build your own sheet on top of this instead of changing things in here */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 12pt;
+}
+
+body {
+  background: #f7f7f5;
+  color: #22262b;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+/* header and nav */
+
+header {
+  background: #1f3a5f;
+  padding: 0.75rem 1.5rem;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  color: #d9e2ef;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.nav-user {
+  color: #9fb3cc;
+  font-size: 0.9rem;
+}
+
+/* page body */
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+h1,
+h2,
+h3 {
+  color: #1f3a5f;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+a {
+  color: #1f3a5f;
+}
+
+/* tables. most of the admin screens are a list of something */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+th,
+td {
+  border: 1px solid #d8dde3;
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #eceff3;
+  font-weight: bold;
+}
+
+tbody tr:hover {
+  background: #f4f7fa;
+}
+
+/* forms */
+
+form {
+  margin: 0;
+}
+
+fieldset {
+  border: 1px solid #d8dde3;
+  background: #ffffff;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+}
+
+legend {
+  color: #1f3a5f;
+  font-weight: bold;
+  padding: 0 0.4rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 1rem;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid #b9c2cc;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #1f3a5f;
+  outline: 2px solid #c7d6e8;
+}
+
+/* buttons */
+
+button {
+  border: 1px solid #1f3a5f;
+  background: #1f3a5f;
+  color: #ffffff;
+  padding: 0.45rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2c527f;
+}
+
+button.secondary {
+  background: #ffffff;
+  color: #1f3a5f;
+}
+
+button.secondary:hover {
+  background: #eceff3;
+}
+
+/* messages. the error page uses these and so does every form that failed validation */
+
+.error {
+  border-left: 4px solid #a8322d;
+  background: #fbeceb;
+  color: #7d2520;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.error-code {
+  color: #6b7480;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.success {
+  border-left: 4px solid #2f6b46;
+  background: #ebf4ee;
+  color: #255437;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 1rem;
+}

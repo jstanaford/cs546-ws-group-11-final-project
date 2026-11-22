@@ -1,0 +1,24 @@
+{{! core 10, the sign in form. part a }}
+<h1>Sign In</h1>
+
+{{#if error}}
+    <p class="error">{{error}}</p>
+{{/if}}
+
+<form id="login-form" action="/login" method="POST" novalidate>
+    <fieldset>
+        <legend>Sign In</legend>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="{{email}}" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+
+        <button type="submit">Sign In</button>
+    </fieldset>
+</form>
+
+<p>Need an account? <a href="/register">Create one</a></p>
+
+<script src="/public/js/auth.js"></script>

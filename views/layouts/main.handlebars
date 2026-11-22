@@ -1,0 +1,58 @@
+{{! the page shell every view renders into. the nav reads res.locals.user, which app.js sets
+from the session, so no route has to pass the user down just for the header }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/public/css/base.css">
+    {{! your own sheet for your own pages, pass stylesheet from your route }}
+    {{#if stylesheet}}
+        <link rel="stylesheet" href="/public/css/{{stylesheet}}">
+    {{/if}}
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a class="brand" href="/">Technology Checkout</a>
+
+            <ul class="nav-links">
+                {{#if user}}
+                    <li><a href="/catalog">Catalog</a></li>
+                    <li><a href="/dashboard">My Equipment</a></li>
+
+                    {{#if isAdmin}}
+                        <li><a href="/admin/equipment">Equipment</a></li>
+                        <li><a href="/admin/queue">Requests</a></li>
+                        <li><a href="/admin/returns">Returns</a></li>
+                        <li><a href="/admin/overdue">Overdue</a></li>
+                        <li><a href="/admin/lookup">Asset Lookup</a></li>
+                        <li><a href="/admin/accounts">Accounts</a></li>
+                        <li><a href="/admin/notifications">Notifications</a></li>
+                        <li><a href="/admin/reports">Reports</a></li>
+                    {{/if}}
+
+                    <li class="nav-user">{{user.firstName}} {{user.lastName}}</li>
+                    <li>
+                        {{! a post and not a link, so nothing signs you out just by loading }}
+                        <form action="/logout" method="POST">
+                            <button type="submit">Sign Out</button>
+                        </form>
+                    </li>
+                {{else}}
+                    <li><a href="/login">Sign In</a></li>
+                    <li><a href="/register">Create Account</a></li>
+                {{/if}}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {{{body}}}
+    </main>
+</body>
+
+</html>
