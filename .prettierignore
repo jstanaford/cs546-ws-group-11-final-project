@@ -1,3 +1,8 @@
 node_modules
 package-lock.json
 public/images
+
+# leave the handlebars files alone. prettier runs them through its glimmer parser and that
+# strips the <!DOCTYPE html> line right off the layout, which breaks html validation, and it
+# rewrites every attribute to single quotes while its at it
+*.handlebars
