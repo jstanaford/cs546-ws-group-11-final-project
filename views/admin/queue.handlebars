@@ -1,0 +1,107 @@
+<section class="admin-operations">
+  <h1>{{title}}</h1>
+  {{#if error}}<p class="operations-error" role="alert">{{error}}</p>{{/if}}
+  {{#if saved}}<p role="status">Changes saved.</p>{{/if}}
+  <p id="queue-message" role="status"></p>
+
+  <h2>Pending requests</h2>
+  <p id="empty-requests" {{#if pending}}hidden{{/if}}>There are no pending requests.</p>
+  {{#if pending}}
+    <div class="operations-table" id="pending-requests">
+      <table>
+        <thead>
+          <tr><th scope="col">Borrower</th><th scope="col">Equipment</th><th scope="col">Request</th><th scope="col">Actions</th></tr>
+        </thead>
+        <tbody>
+          {{#each pending}}
+            <tr>
+              <td>{{borrowerName}}{{#if borrower.email}}<small>{{borrower.email}}</small>{{/if}}</td>
+              <td>{{itemName}}<small>{{assetTag}}</small></td>
+              <td>{{type}} · {{loanTypeLabel}}<small>{{requested}}</small></td>
+              <td>
+                <div class="operations-actions">
+                  <form method="post" action="/admin/queue/{{id}}/approve">
+                    <button type="submit">Approve</button>
+                  </form>
+                  <details>
+                    <summary>Deny request</summary>
+                    <form method="post" action="/admin/queue/{{id}}/deny" data-deny-request>
+                      <label for="reason-{{id}}">Denial reason</label>
+                      <textarea id="reason-{{id}}" name="reason" maxlength="500" required></textarea>
+                      <button type="submit">Confirm denial</button>
+                      <p class="operations-error" data-form-error role="alert" hidden></p>
+                    </form>
+                  </details>
+                </div>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{/if}}
+
+  <h2>Approved requests awaiting pickup</h2>
+  {{#if approved}}
+    <div class="operations-table">
+      <table>
+        <thead>
+          <tr><th scope="col">Borrower</th><th scope="col">Reserved equipment</th><th scope="col">Loan type</th><th scope="col">Actions</th></tr>
+        </thead>
+        <tbody>
+          {{#each approved}}
+            <tr>
+              <td>{{borrowerName}}{{#if borrower.email}}<small>{{borrower.email}}</small>{{/if}}</td>
+              <td>{{itemName}}<small>{{assetTag}}</small></td>
+              <td>{{loanTypeLabel}}</td>
+              <td>
+                <div class="operations-actions">
+                  <form method="post" action="/admin/queue/{{id}}/issue">
+                    <button type="submit">Issue equipment</button>
+                  </form>
+                  <form method="post" action="/admin/queue/{{id}}/release">
+                    <button type="submit">Release reservation</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{else}}
+    <p>There are no approved requests awaiting pickup.</p>
+  {{/if}}
+
+  <h2>Walk-up checkout</h2>
+  {{#if needsWalkUpOptions}}
+    <p>Walk-up checkout requires an active account and an available item.</p>
+  {{else}}
+    <form class="operations-fields" method="post" action="/admin/queue/walk-up">
+      <div>
+        <label for="walk-up-borrower">Borrower</label>
+        <select id="walk-up-borrower" name="userId" required>
+          <option value="">Select a borrower</option>
+          {{#each borrowers}}<option value="{{id}}">{{firstName}} {{lastName}} ({{email}})</option>{{/each}}
+        </select>
+      </div>
+      <div>
+        <label for="walk-up-equipment">Equipment</label>
+        <select id="walk-up-equipment" name="equipmentId" required>
+          <option value="">Select equipment</option>
+          {{#each items}}<option value="{{id}}">{{name}} ({{assetTag}})</option>{{/each}}
+        </select>
+      </div>
+      <div>
+        <label for="walk-up-type">Loan type</label>
+        <select id="walk-up-type" name="loanType" required>
+          <option value="">Select a loan type</option>
+          <option value="shortTerm">Short term</option>
+          <option value="longTerm">Long term</option>
+        </select>
+      </div>
+      <button type="submit">Check out equipment</button>
+    </form>
+  {{/if}}
+</section>
+<script src="/public/js/admin-operations.js" defer></script>
