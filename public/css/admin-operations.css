@@ -1,0 +1,79 @@
+.admin-operations {
+  max-width: 76rem;
+  margin-inline: auto;
+}
+
+.admin-operations h2 {
+  margin-top: 2rem;
+}
+
+.admin-operations .operations-table {
+  overflow-x: auto;
+  margin-block: 1rem;
+}
+
+.admin-operations table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-operations th,
+.admin-operations td {
+  padding: 0.65rem;
+  border-bottom: 1px solid #c0c8d0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-operations td small {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.admin-operations .operations-fields,
+.admin-operations .operations-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.admin-operations .operations-fields {
+  align-items: end;
+}
+
+.admin-operations label {
+  display: block;
+}
+
+.admin-operations details {
+  min-width: 10rem;
+}
+
+.admin-operations details form {
+  margin-top: 0.65rem;
+}
+
+.admin-operations summary {
+  cursor: pointer;
+}
+
+.admin-operations :is(input, select, textarea) {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.admin-operations textarea {
+  display: block;
+  min-height: 4rem;
+  margin-bottom: 0.5rem;
+  resize: vertical;
+}
+
+.admin-operations .operations-error {
+  color: #a21c22;
+}
+
+.admin-operations [hidden] {
+  display: none;
+}

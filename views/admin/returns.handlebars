@@ -1,0 +1,42 @@
+<section class="admin-operations">
+  <h1>{{title}}</h1>
+  {{#if error}}<p class="operations-error" role="alert">{{error}}</p>{{/if}}
+  {{#if saved}}<p role="status">Return recorded.</p>{{/if}}
+
+  {{#if loans}}
+    <div class="operations-table">
+      <table>
+        <thead>
+          <tr><th scope="col">Equipment</th><th scope="col">Borrower</th><th scope="col">Issued</th><th scope="col">Due</th><th scope="col">Return</th></tr>
+        </thead>
+        <tbody>
+          {{#each loans}}
+            <tr>
+              <td>{{itemName}}<small>{{assetTag}}</small></td>
+              <td>{{borrowerName}}{{#if borrower.email}}<small>{{borrower.email}}</small>{{/if}}</td>
+              <td>{{issued}}</td>
+              <td>{{#if due}}{{due}}{{else}}No due date{{/if}}</td>
+              <td>
+                <details>
+                  <summary>Process return</summary>
+                  <form method="post" action="/admin/returns/{{id}}">
+                    <label for="condition-{{id}}">Return condition</label>
+                    <select id="condition-{{id}}" name="condition" required>
+                      <option value="">Select a condition</option>
+                      {{#each ../conditions}}<option value="{{this}}">{{this}}</option>{{/each}}
+                    </select>
+                    <label for="note-{{id}}">Return note (optional)</label>
+                    <textarea id="note-{{id}}" name="note" maxlength="500"></textarea>
+                    <button type="submit">Record return</button>
+                  </form>
+                </details>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{else}}
+    <p>There are no active loans.</p>
+  {{/if}}
+</section>

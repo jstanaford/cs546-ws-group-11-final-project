@@ -1,0 +1,33 @@
+<section class="admin-operations">
+  <h1>{{title}}</h1>
+  <form class="operations-fields" method="get" action="/admin/overdue">
+    <div>
+      <label for="overdue-search">Borrower name, email, equipment or asset tag</label>
+      <input id="overdue-search" name="search" type="search" maxlength="100" value="{{search}}">
+    </div>
+    <button type="submit">Search</button>
+    {{#if search}}<a href="/admin/overdue">Clear search</a>{{/if}}
+  </form>
+  {{#if loans}}
+    <div class="operations-table">
+      <table>
+        <thead>
+          <tr><th scope="col">Borrower</th><th scope="col">Equipment</th><th scope="col">Due date (UTC)</th><th scope="col">Days overdue</th></tr>
+        </thead>
+        <tbody>
+          {{#each loans}}
+            <tr>
+              <td>{{borrowerName}}{{#if borrower.email}}<small>{{borrower.email}}</small>{{/if}}</td>
+              <td>{{itemName}}<small>{{assetTag}}</small></td>
+              <td>{{due}}</td>
+              <td>{{daysOverdue}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <p><a href="/admin/returns">Go to returns</a></p>
+  {{else}}
+    <p>{{#if search}}No overdue loans match your search.{{else}}There are no overdue loans.{{/if}}</p>
+  {{/if}}
+</section>
